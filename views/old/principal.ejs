@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="img/logo/logo.png" rel="icon">
+  <title>RuangAdmin - Dashboard</title>
+  <link href="/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/vendor/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css">
+  <link href="/assets/css/ruang-admin.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+  <style>
+	.h4, h4 {
+		font-size: 18px;
+	}
+	.select2-container .select2-choice {
+		padding: 5px 10px;
+		height: 40px;
+		width: 132px; 
+		font-size: 1.2em;  
+	}
+	.select2-container .select2-selection--single {
+		box-sizing: border-box;
+		cursor: pointer;
+		display: block;
+		height: 42px;
+		user-select: none;
+		-webkit-user-select: none;
+	}
+	.select2-container .select2-selection--single .select2-selection__rendered {
+		display: block;
+		padding-left: 8px;
+		padding-right: 20px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		padding-top: 7px;
+	}
+	.select2-container--default .select2-selection--single .select2-selection__arrow {
+		height: 26px;
+		position: absolute;
+		top: 1px;
+		right: 1px;
+		width: 20px;
+		margin-top: 8px;
+	}
+	.select2-container--default .select2-search--dropdown .select2-search__field {
+		border: 1px solid #ccc;
+		border-radius: 3px;
+	}
+  </style>
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+		<a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+			<div class="sidebar-brand-icon">
+				<img src="img/logo/logo2.png">
+			</div>
+			<div class="sidebar-brand-text mx-3">GERENCIE</div>
+		</a>
+		<hr class="sidebar-divider my-0">
+		<li class="nav-item active">
+			<a class="nav-link" href="/">
+				<i class="fas fa-fw fa-tachometer-alt"></i>
+				<span>Dashboard</span>
+			</a>
+		</li>
+		<hr class="sidebar-divider">
+		<div class="sidebar-heading">MENU</div>
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap" aria-expanded="true" aria-controls="collapseBootstrap">
+				<i class="far fa-fw fa-window-maximize"></i>
+				<span>Contas a Pagar</span>
+			</a>
+			<div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<a class="collapse-item" href="" data-toggle="modal" data-target="#modalExemplo">Cadastrar</a>
+					<a class="collapse-item" href="/contasPagar/<%= uid_usuario %>">Visualizar</a>            
+				</div>
+			</div>
+		</li>      
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap" aria-expanded="true" aria-controls="collapseBootstrap">
+				<i class="far fa-fw fa-window-maximize"></i>
+				<span>Contas a Receber</span>
+			</a>
+			<div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<a class="collapse-item" href="" data-toggle="modal" data-target="#modalExemplo">Cadastrar</a>
+					<a class="collapse-item" href="/contasReceber/<%= uid_usuario %>">Visualizar</a>            
+				</div>
+			</div>
+		</li>      
+		<hr class="sidebar-divider">
+		<div class="version" id="version-ruangadmin"></div>
+    </ul>
+    <!-- Sidebar -->
+    <div id="content-wrapper" class="d-flex flex-column">
+		<div id="content">
+        <!-- TopBar -->
+        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+          <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                aria-labelledby="searchDropdown">
+                <form class="navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-1 small" placeholder="What do you want to look for?"
+                      aria-label="Search" aria-describedby="basic-addon2" style="border-color: #3f51b5;">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+            
+            
+            <div class="topbar-divider d-none d-sm-block"></div>
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <img class="img-profile rounded-circle" src="assets/img/boy.png" style="max-width: 60px">
+                <span class="ml-2 d-none d-lg-inline text-white small">Maman Ketoprak</span>
+              </a>
+              
+            </li>
+          </ul>
+        </nav>
+        <!-- Topbar -->
+
+        <!-- Container Fluid-->
+        <div class="container-fluid" id="container-wrapper">
+			<div class="d-sm-flex align-items-center justify-content-between mb-4">
+				<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+			</div>
+			<div class="row mb-3">
+				<div class="col-xl-3 col-md-6 mb-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<div class="row align-items-center">
+								<div class="col mr-2">
+									<div class="text-xs font-weight-bold text-uppercase mb-1">CONTAS PAGAS</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800"><%= cp_pagos_mes %></div>
+									<div class="mt-2 mb-0 text-muted text-xs">
+										<!--<span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>-->
+										<span>CONTAS PAGAS NO MÊS</span>
+									</div>
+								</div>
+								<div class="col-auto">
+									<i class="fas fa-calendar fa-2x text-primary"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            <!-- Earnings (Annual) Card Example -->
+				<div class="col-xl-3 col-md-6 mb-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div class="text-xs font-weight-bold text-uppercase mb-1">CONTAS A PAGAR</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800"><%= cp_pagar_mes %></div>
+									<div class="mt-2 mb-0 text-muted text-xs">
+										<!--<span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>-->
+										<span>CONTAS A PAGAR NO MÊS</span>
+									</div>
+								</div>
+								<div class="col-auto">
+									<i class="fas fa-shopping-cart fa-2x text-success"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            <!-- New User Card Example -->
+				<div class="col-xl-3 col-md-6 mb-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div class="text-xs font-weight-bold text-uppercase mb-1">CONTAS RECEBIDAS</div>
+									<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">366</div>
+									<div class="mt-2 mb-0 text-muted text-xs">
+										<span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20.4%</span>
+										<span>Since last month</span>
+									</div>
+								</div>
+								<div class="col-auto">
+									<i class="fas fa-users fa-2x text-info"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+            <!-- Pending Requests Card Example -->
+				<div class="col-xl-3 col-md-6 mb-4">
+					<div class="card h-100">
+						<div class="card-body">
+							<div class="row no-gutters align-items-center">
+								<div class="col mr-2">
+									<div class="text-xs font-weight-bold text-uppercase mb-1">CONTAS A RECEBER</div>
+									<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+									<div class="mt-2 mb-0 text-muted text-xs">
+										<span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+										<span>Since yesterday</span>
+									</div>
+								</div>
+								<div class="col-auto">
+									<i class="fas fa-comments fa-2x text-warning"></i>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xl-6 col-lg-7 mb-4">
+					<div class="card">
+						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 class="m-0 font-weight-bold text-primary">CONTAS A PAGAR</h6>
+							<a class="m-0 float-right btn btn-danger btn-sm" href="/ContasPagar/<%= uid_usuario %> ">Visualizar Mais <i class="fas fa-chevron-right"></i></a>
+						</div>
+						<div class="table-responsive">
+							<table class="table align-items-center table-flush">
+								<thead class="thead-light">
+									<tr>
+										<th>Descrição</th>
+										<th>Valor</th>
+									</tr>
+								</thead>
+								<tbody>
+									<% contas_pagar.forEach(cp=>{  %> 
+									<tr>
+										<td><a href="#"><%= cp.descricao %></a></td>
+										<td><%= cp.valor %></td>
+									</tr>
+									<% }) %>
+								</tbody>
+							</table>
+						</div>
+						<div class="card-footer"></div>
+					</div>
+				</div>
+			
+				<div class="col-xl-6 col-lg-7 mb-4">
+					<div class="card">
+						<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+							<h6 class="m-0 font-weight-bold text-primary">CONTAS A REEBER</h6>
+							<a class="m-0 float-right btn btn-danger btn-sm" href="#">Visualizar Mais <i class="fas fa-chevron-right"></i></a>
+						</div>
+						<div class="table-responsive">
+							<table class="table align-items-center table-flush">
+								<thead class="thead-light">
+									<tr>
+										<th>Order ID</th>
+										<th>Customer</th>
+										<th>Item</th>
+										<th>Status</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><a href="#">RA0449</a></td>
+										<td>Udin Wayang</td>
+										<td>Nasi Padang</td>
+										<td><span class="badge badge-success">Delivered</span></td>
+										<td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="card-footer"></div>
+					</div>
+				</div>
+            
+      
+			</div>
+          <!--Row-->
+
+        </div>
+        <!---Container Fluid-->
+      </div>
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          
+        </div>
+
+        
+      </footer>
+      <!-- Footer -->
+    </div>
+  </div>
+  
+<div class="modal fade" id="modalNovidades" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Adicionar Contas a Pagar</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+			</div>
+		</div>
+	</div>
+</div>
+  
+<div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Adicionar Contas a Pagar</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form id="formulario" action="javascript:func()" method="post">
+					<input type="hidden" id="uid_usuario" value="<%= uid_usuario %>"/>
+					<input type="hidden" id="id_empresa" value="<%= id_empresa %>"/>
+					<input type="hidden" class="form-control date" id="data_atual" disabled />
+					<div class="row" style="height:30px;">
+						<div class="col-sm-6" style="margin-bottom: 15px;">
+							<div class="check-list">
+								<label class="ui-checkbox ui-checkbox-success">
+									<input type="checkbox" id="pago">
+									<span class="input-span"></span>Pago</label>
+							</div>
+						</div>
+						<div class="col-sm-6" style="margin-bottom: 0px;">
+						<h5 class="m-t-10 m-b-10 font-strong" style="text-align: right; margin-top: 3px; font-weight: bold;color: red;" id="valorTotalCalculado">0.00</h5>
+					</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<h4 class="card-inside-title ">Descricao</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control" placeholder="Descrição" id="descricao" required />
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-sm-4">
+							<h4 class="card-inside-title ">Documento</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control" placeholder="Documento" id="documento" required />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<h4 class="card-inside-title ">Vencimento</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control date" placeholder="" id="vencimento" />
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<h4 class="card-inside-title ">Pagamento</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control " placeholder="" id="data_pagto" />
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">	
+						<div class="col-sm-4">
+							<h4 class="card-inside-title ">Valor</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control money" placeholder="0.00" id="valor" />
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<h4 class="card-inside-title ">Valor Multa</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control money" placeholder="0.00" id="valor_multa" />
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<h4 class="card-inside-title ">Valor Juros</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control money" placeholder="0.00" id="valor_juros"  />
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-4" style="display: none;">
+							<h4 class="card-inside-title ">Valor Total</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control money" placeholder="0.00" id="valor_total"  />
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<h4 class="card-inside-title ">Contas</h4>
+							<div class="form-group">
+								<select class="form-control select2-single" style="width: 100%;"  id="id_contas">
+									<option value="" selected> Selecione </option>
+									<% contas.forEach(contas=>{ %>
+										<option value="<%= contas.id_contas %>"> <%=contas.descricao %> </option>
+									<% }) %>
+								</select>
+							</div>
+						</div>
+
+						<div class="col-md-6">
+							<h4 class="card-inside-title ">Fornecedor</h4>
+							<div class="form-group">
+								
+								<select class="form-control select2-single" style="width: 100%;" name="id_fornecedor" id="id_fornecedor">
+									<option value="" selected> Selecione </option>
+									<% fornecedor.forEach(fornecedor=>{ %>
+										<option value="<%=fornecedor.id_fornecedor %>"> <%=fornecedor.nome %> </option>
+									<% }) %>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label>Observação</label>
+								<textarea class="form-control" rows="3" id="observacao"></textarea>
+							</div>
+						</div>
+					</div>
+					
+
+				</form>
+			</div>
+			<div class="modal-footer" style="margin-top: -23px;">
+				
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				<button class="btn btn-primary" type="submit" id="salvarContasaPagar"><i class="fa fa-fw fa-lg fa-check-circle"></i>Cadastrar</button>&nbsp;&nbsp;&nbsp;
+			</div>
+			</div>
+		</div>
+	</div>
+  <!-- Scroll to top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <script src="/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="/assets/vendor/select2/dist/js/select2.min.js"></script>
+  <script src="/assets/js/ruang-admin.min.js"></script>
+  
+	<script>
+    $(document).ready(function () {
+	
+		$('#modalNovidades').modal('show');
+	
+		$('.select2-single').select2();
+		
+		$("#valor_multa").on("focusout", function() {
+			let valor = $("#valor").val();					
+			let valor_multa = $("#valor_multa").val();
+			let valor_juros = $("#valor_juros").val();
+		
+			valor_calculado = parseFloat(valor) + parseFloat(valor_juros) + parseFloat(valor_multa);	
+			var atual = valor_calculado;
+			var f = atual.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+			//sem R$
+			var f2 = atual.toLocaleString('pt-br', {minimumFractionDigits: 2});
+			document.getElementById("valorTotalCalculado").innerHTML = f;
+			
+			
+		})
+		
+		$("#valor_juros").on("focusout", function() {
+			let valor = $("#valor").val();					
+			let valor_multa = $("#valor_multa").val();
+			let valor_juros = $("#valor_juros").val();
+		
+			valor_calculado = parseFloat(valor) + parseFloat(valor_juros) + parseFloat(valor_multa);	
+		
+			
+
+			var atual = valor_calculado;
+			var f = atual.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+			//sem R$
+			var f2 = atual.toLocaleString('pt-br', {minimumFractionDigits: 2});
+			document.getElementById("valorTotalCalculado").innerHTML = f;
+		})
+		
+		
+		$("#salvarContasaPagar").click(function(){
+			
+			const checkbox = document.getElementById("pago");
+			const isChecked = checkbox.checked;
+			let _status = "";
+
+			if(isChecked==true){
+				_status='Pago';
+			}
+			
+			var uid = $("#uid_usuario").val();
+			var id_empresa = $("#id_empresa").val();
+			var data_emissao = $("#data_atual").val();
+			var descricao = $("#descricao").val();				
+			var documento = $("#documento").val();
+			var data_vencimento = $("#vencimento").val();
+			var data_pagamento = $("#data_pagto").val();
+			var valor = $("#valor").val();					
+			var valor_multa = $("#valor_multa").val();
+			var valor_juros = $("#valor_juros").val();
+			var valor_total = $("#valor_total").val();
+			var id_contas = $("#id_contas").val();					
+			var id_fornecedor = $("#id_fornecedor").val();
+			var observacao = $("#observacao").val();
+
+
+			if(id_contas=="0" || id_contas==""){
+				swal("Informe a Conta");
+				return;
+			}
+			if(id_fornecedor=="0" || id_fornecedor==""){
+				swal("Informe a Fornecedor");
+				return;
+			}
+			
+			
+
+
+			if(_status=="Pago" && data_pagamento==""){
+				swal("Informe a Data de Pagto");				
+				$("#data_pagto").focus();
+				return;
+			}
+			
+			if(valor==""){
+				swal("Informe o Valor");
+				$("#valor").focus();
+				return;
+			}
+
+			if(valor_total==""){
+				valor_total = valor;
+			}
+			
+			if(data_pagamento!=""){
+				if(validaData(data_pagamento)==false){
+					swal("Informe a data corretamente dd/mm/YYYY");
+					return ;				
+				}
+			}
+			if(data_vencimento!=""){
+				if(validaData(data_vencimento)==false){
+					swal("Informe a data corretamente dd/mm/YYYY");
+					return ;				
+				}
+			}
+			$.post('/ContasPagar', {
+				uid_usuario: uid,
+				id_empresa: id_empresa,
+				lancamento: data_emissao,
+				descricao: descricao,
+				documento: documento,
+				
+				vencimento: data_vencimento,
+				data_pagto: data_pagamento,
+				
+				valor: valor,
+				valor_multa: valor_multa,
+				valor_juros: valor_juros,
+				valor_total: valor_total,
+				
+				id_contas: id_contas,
+				id_fornecedor: id_fornecedor,
+				observacao: observacao,
+				status: _status
+
+			}, function(resposta) {
+				$("#descricao").val("");				
+				$("#documento").val("");
+				$("#vencimento").val("");
+				$("#data_pagto").val("");
+				$("#valor").val("");					
+				$("#valor_multa").val("");
+				$("#valor_juros").val("");
+				$("#valor_total").val("");
+				$("#id_contas").val("");					
+				$("#id_fornecedor").val("");
+				$("#observacao").val("");
+				
+				swal("Contas a pagar cadastrado com sucesso.");				
+				
+				setTimeout(() => {
+				  location.reload(); 
+				}, "1000");
+				
+			});
+			
+			function validaData (valor) {
+					// Verifica se a entrada é uma string
+					if (typeof valor !== 'string') {
+						return false
+					}
+
+					// Verifica formado da data
+					if (!/^\d{2}\/\d{2}\/\d{4}$/.test(valor)) {
+						return false
+					}
+
+					// Divide a data para o objeto "data"
+					const partesData = valor.split('/')
+					const data = { 
+						dia: partesData[0], 
+						mes: partesData[1], 
+						ano: partesData[2] 
+					}
+					
+					// Converte strings em número
+					const dia = parseInt(data.dia)
+					const mes = parseInt(data.mes)
+					const ano = parseInt(data.ano)
+					
+					// Dias de cada mês, incluindo ajuste para ano bissexto
+					const diasNoMes = [ 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+
+					// Atualiza os dias do mês de fevereiro para ano bisexto
+					if (ano % 400 === 0 || ano % 4 === 0 && ano % 100 !== 0) {
+						diasNoMes[2] = 29
+					}
+					
+					// Regras de validação:
+					// Mês deve estar entre 1 e 12, e o dia deve ser maior que zero
+					if (mes < 1 || mes > 12 || dia < 1) {
+						return false
+					}
+					// Valida número de dias do mês
+					else if (dia > diasNoMes[mes]) {
+						return false
+					}
+					
+					// Passou nas validações
+					return true
+					}
+
+		})
+	})
+	</script>
+</body>
+
+</html>

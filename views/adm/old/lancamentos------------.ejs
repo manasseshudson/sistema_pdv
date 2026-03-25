@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lançamentos Realizados</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen flex bg-gray-100">
+
+  <!-- Sidebar (altura total) -->
+  <aside class="w-20 bg-[#1f2937] flex flex-col items-center py-6 space-y-6 h-screen">
+    <!-- Círculo verde -->
+    <div class="bg-green-500 rounded-full w-6 h-6 mb-6"></div>
+
+    <!-- Ícones do menu -->
+    <nav class="flex flex-col items-center space-y-5">
+      <div class="w-6 h-6 bg-gray-600 rounded"></div>
+      <div class="w-6 h-6 bg-gray-600 rounded"></div>
+      <div class="w-6 h-6 bg-gray-600 rounded"></div>
+      <div class="w-6 h-6 bg-gray-600 rounded"></div>
+      <div class="w-6 h-6 bg-gray-600 rounded"></div>
+    </nav>
+  </aside>
+
+  <!-- Conteúdo principal -->
+  <main class="flex-1 p-6 overflow-x-auto">
+    <div class="bg-white rounded-lg shadow p-6">
+      <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
+        <h1 class="text-lg font-semibold">Lançamentos Realizados</h1>
+
+        <!-- Filtros -->
+        <div class="flex items-end space-x-2">
+          <div>
+            <label for="dia" class="text-sm block">Dia</label>
+            <input id="dia" type="number" min="1" max="31"
+              class="border rounded px-2 py-1 text-sm w-16">
+          </div>
+
+          <div>
+            <label for="mes" class="text-sm block">Mês</label>
+            <select id="mes" class="border rounded px-2 py-1 text-sm">
+              <option>JANEIRO</option>
+              <option>FEVEREIRO</option>
+              <option>MARÇO</option>
+              <option>ABRIL</option>
+              <option>MAIO</option>
+              <option>JUNHO</option>
+              <option>JULHO</option>
+              <option>AGOSTO</option>
+              <option>SETEMBRO</option>
+              <option selected>OUTUBRO</option>
+              <option>NOVEMBRO</option>
+              <option>DEZEMBRO</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="ano" class="text-sm block">Ano</label>
+            <select id="ano" class="border rounded px-2 py-1 text-sm">
+              <option>2024</option>
+              <option selected>2025</option>
+              <option>2026</option>
+            </select>
+          </div>
+
+          <button id="btnPesquisar" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">
+            Pesquisar
+          </button>
+        </div>
+      </div>
+
+      <!-- Campo de pesquisa -->
+      <div class="flex justify-end mb-4">
+        <label class="text-sm mr-2">Procurar:</label>
+        <input type="text" id="filtro" placeholder="Digite..."
+          class="border rounded px-2 py-1 text-sm">
+      </div>
+
+      <!-- Tabela -->
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="border-b bg-gray-50 text-gray-600 text-left">
+              <th class="p-2">Cliente</th>
+              <th class="p-2">Documento</th>
+              <th class="p-2">Valor</th>
+              <th class="p-2">Data</th>
+              <th class="p-2">Vencimento</th>
+              <th class="p-2 text-right">Pagamento</th>
+            </tr>
+          </thead>
+          <tbody id="tabela">
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-2">CONSUMIDOR FINAL</td>
+              <td class="p-2">20251019121543</td>
+              <td class="p-2">22.99</td>
+              <td class="p-2">19/10/2025</td>
+              <td class="p-2">19/10/2025</td>
+              <td class="p-2 text-right">
+                <button class="bg-orange-400 hover:bg-orange-500 text-white px-3 py-1 rounded text-xs">detalhes</button>
+              </td>
+            </tr>
+            <tr class="border-b hover:bg-gray-50">
+              <td class="p-2">CLIENTE TESTE</td>
+              <td class="p-2">20251018100231</td>
+              <td class="p-2">15.00</td>
+              <td class="p-2">18/10/2025</td>
+              <td class="p-2">18/10/2025</td>
+              <td class="p-2 text-right">
+                <button class="bg-orange-400 hover:bg-orange-500 text-white px-3 py-1 rounded text-xs">detalhes</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Paginação -->
+      <div class="flex justify-end items-center space-x-2 mt-4 text-sm text-gray-600">
+        <button class="px-2 py-1 border rounded">Primeiro</button>
+        <button class="px-2 py-1 border rounded">Anterior</button>
+        <span class="px-3 py-1 border rounded bg-gray-50">1</span>
+        <button class="px-2 py-1 border rounded">Seguinte</button>
+        <button class="px-2 py-1 border rounded">Último</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Script de filtro -->
+  <script>
+    const filtro = document.getElementById('filtro');
+    filtro.addEventListener('input', () => {
+      const termo = filtro.value.toLowerCase();
+      document.querySelectorAll('#tabela tr').forEach(tr => {
+        const texto = tr.textContent.toLowerCase();
+        tr.style.display = texto.includes(termo) ? '' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>

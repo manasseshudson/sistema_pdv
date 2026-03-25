@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="/assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
+    <link href="/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+    <link href="/assets/css/main.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/overhang.min.css" />
+    <style>
+        .content-wrapper {
+            position: relative;
+            background-color: #f7f7f7;
+            background-color: #f2f2f2;
+            background-color: #f1f1f1;
+            margin-left: 200px;
+            padding: 0 15px 60px 15px;
+                padding-top: 0px;
+            -webkit-transition: margin .2s ease-in-out;
+            -o-transition: margin .2s ease-in-out;
+            transition: margin .2s ease-in-out;
+            min-height: 1000px;
+            }
+        .page-footer {
+              position: absolute;
+              left: 10px;
+              bottom: 0;
+              width: 100%;
+              display: -webkit-box;
+              display: -webkit-flex;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-pack: justify;
+              -webkit-justify-content: space-between;
+              -ms-flex-pack: justify;
+              justify-content: space-between;
+              -webkit-box-align: center;
+              -webkit-align-items: center;
+              -ms-flex-align: center;
+              align-items: center;
+              padding: 10px 15px;
+              background-color: #fff;
+            }
+    </style>
+</head>
+
+<body class="fixed-navbar sidebar-mini">
+    <div class="page-wrapper">
+        <!-- START HEADER-->
+        <header class="header">
+            <div class="page-brand">
+              <%- include('./../partials/logo.ejs') %>
+            </div>
+            <div class="flexbox flex-1">
+                <!-- START TOP-LEFT TOOLBAR-->
+                <ul class="nav navbar-toolbar">
+                    <li>
+                        <a class="nav-link sidebar-toggler js-sidebar-toggler"><i class="ti-menu"></i></a>
+                    </li>
+                    <li>
+                       
+                    </li>
+                </ul>
+                <!-- END TOP-LEFT TOOLBAR-->
+                <!-- START TOP-RIGHT TOOLBAR-->
+                <ul class="nav navbar-toolbar">
+                    
+                </ul>
+                <!-- END TOP-RIGHT TOOLBAR-->
+            </div>
+        </header>
+        <!-- END HEADER-->
+        <!-- START SIDEBAR-->
+        <nav class="page-sidebar" id="sidebar">
+            <div id="sidebar-collapse">
+                <div class="admin-block d-flex">
+                    <div>
+                        <img src="https://ibadejuf.com.br/assets/img/admin-avatar.png" width="45px" />
+                    </div>
+                    <div class="admin-info">
+                        <div class="font-strong"><%= user %></div><small>Administrator</small></div>
+                </div>
+                <%- include('./../partials/sidebar.ejs') %>
+            </div>
+        </nav>
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content fade-in-up">
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-head">
+                            <div class="ibox-title">Cadastrar Cliente</div>                            
+                        </div>
+                        <div class="ibox-body">
+                            
+							<form id="formulario" action="javascript:func()" method="post">
+								<input type="hidden" id="uid_usuario" value="<%= uid_usuario %>" >
+								<input type="hidden" id="id_empresa" value="<%= id_empresa %>" >
+								<div class="row">
+									<div class="check-list" style="margin-bottom:30px;">
+										<label class="ui-radio ui-radio-primary">
+											<input type="radio" id="fisica">
+											<span class="input-span"></span>FÍSICA</label>
+										<label class="ui-radio ui-radio-primary">
+											<input type="radio" id="juridica">
+											<span class="input-span"></span>JURÍDICA</label>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-md-3 px-1">
+										<div class="form-group">
+											<label>Nome <b>*</b></label>
+											<input type="text" class="form-control" placeholder="" id="nome" value="" required>
+										</div>
+									</div>
+									<div class="col-md-4 pl-1">
+										<div class="form-group">
+											<label for="exampleInputEmail1">Email <b>*</b></label>
+											<input type="text" class="form-control" id="email"  placeholder="" >
+										</div>
+									</div>
+									<div class="col-md-2 pl-1" id="mostrar_cpf">
+										<div class="form-group">
+											<label for="exampleInputEmail1">CPF <b>*</b></label>
+											<input type="text" class="form-control" id="cpf" placeholder="" >
+										</div>
+									</div>
+									<div class="col-md-2 pl-1" id="mostrar_cnpj">
+										<div class="form-group">
+											<label for="exampleInputEmail1">CNPJ <b>*</b></label>
+											<input type="text" class="form-control" id="cnpj" placeholder="" >
+										</div>
+									</div>
+									
+									<div class="col-md-2 pl-1">
+										<div class="form-group">
+											<label>Telefone</label>
+											<input type="text" class="form-control" placeholder="" id="telefone">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									
+								</div>
+           
+								<div class="row">
+									<div class="col-md-2 px-1">
+										<div class="form-group">
+											<label>CEP</label>
+											<input type="text" class="form-control"  id="cep" placeholder="" value="">
+										</div>
+									</div>
+									<div class="col-md-6 px-1">
+										<div class="form-group">
+											<label>Endereço</label>
+											<input type="text" class="form-control"  id="endereco" placeholder="" value="">
+										</div>
+									</div>								  
+									<div class="col-md-2 px-1">
+										<div class="form-group">
+											<label>Numero</label>
+											<input type="text" class="form-control" id="numero"  placeholder="" value="">
+										</div>
+									</div>								  
+									<div class="col-md-2 px-1">
+										<div class="form-group">
+											<label>Complemento</label>
+											<input type="text" class="form-control" id="complemento"  placeholder="" value="">
+										</div>
+									</div>					
+								</div>
+								<div class="row">
+									<div class="col-md-3 px-1">
+										<div class="form-group">
+											<label>Bairro</label>
+											<input type="text" class="form-control"  id="bairro" placeholder="" value="">
+										</div>
+									</div>
+									<div class="col-md-3 px-1">
+										<div class="form-group">
+											<label>Cidade</label>
+											<input type="text" class="form-control" id="cidade" placeholder="" value="">
+										</div>
+									</div>								  
+									<div class="col-md-2 px-1">
+										<div class="form-group">
+											<label>UF</label>
+											<input type="text" class="form-control" id="uf" placeholder="" value="">
+										</div>
+									</div>		
+								</div>
+								<div class="row" style="margin-top: 15px;">
+									<div class="update ml-auto mr-auto">
+										<button type="submit" id="salvarCliente" class="btn btn-primary btn-round" style="padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px; font-size: 13px;">Cadastrar</button>
+										<button type="reset" class="btn btn-warning btn-round" style="padding-left: 15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px; font-size: 13px;">Limpar</button>
+									</div>                  
+								</div>
+							</form>
+                        </div>
+                    </div>
+                   
+                </div>
+               
+            </div>
+            <!-- END PAGE CONTENT-->
+            <%- include('./../partials/footer.ejs') %>
+        </div>
+    </div>
+    <!-- BEGIN PAGA BACKDROPS-->
+    <div class="sidenav-backdrop backdrop"></div>
+    <div class="preloader-backdrop">
+        <div class="page-preloader">Loading</div>
+    </div>
+	<script type="text/javascript" src="/jquery.min.js"></script>
+	<script type="text/javascript" src="/jquery-ui.min.js"></script>
+	<script src="/jquery.mask.min.js"></script>
+	<script src="./assets/vendors/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
+    <script src="/assets/js/app.min.js" type="text/javascript"></script>
+    <!--<script src="/assets/js/scripts/dashboard_1_demo.js" type="text/javascript"></script>-->
+	<script type="text/javascript" src="/overhang.min.js"></script>
+	<% if(abrir_aviso==true){ %>
+        <script>
+			$(document).ready(function () {
+				$("body").overhang({
+					type: "info",
+					message: "Cliente já cadastrado.",
+					duration: 2
+				});
+			})
+        </script>
+    <% } %>
+    <script>
+        $(document).ready(function () {
+			$("#fisica").prop('checked', true);			
+			$("#juridica").prop('checked', false);
+			
+			$("#mostrar_cnpj").hide();				
+			$("#mostrar_cpf").show();
+			
+			
+			$("input[id='fisica']").click(function() {
+			  if ($(this).prop('checked')) {
+				$("#cnpj").val("");
+				$("#juridica").prop('checked', false);
+				$("#mostrar_cnpj").hide();				
+				$("#mostrar_cpf").show();
+			  }
+			});
+			$("input[id='juridica']").click(function() {
+			  if ($(this).prop('checked')) {
+				$("#cpf").val("");
+				$("#fisica").prop('checked', false);
+				$("#mostrar_cnpj").show();
+				$("#mostrar_cpf").hide();
+			  }
+			});
+			
+		
+			$("#cpf").on("focusout", function() {
+				var cpf = $("#cpf").val();
+				var id_empresa = $("#id_empresa").val();
+				
+				$.get("/adm/validarCpf/"+cpf+"/"+id_empresa, function(data){
+					if (data=="0"){
+						$("#salvarCliente").attr("disabled", false);
+					}else{				
+						$("body").overhang({
+							type: "error",
+							message: data,
+							duration: 2
+						});
+						$("#salvarCliente").attr("disabled", true);
+					}
+				});
+			})
+		
+		
+		
+          $("#modal-default").modal("show");
+         // $(".select2").select2();
+          $("#cpf").mask("000.000.000-00");
+		  //08.538.770%2F0001-02
+		  $("#cnpj").mask("00.000.000/0000-00");
+          $("#cep").mask("00000-000");
+          $("#telefone").mask("(00)00000-0000");
+          $("#data").mask("00/00/0000");
+          $("#data_batismo").mask("00/00/0000");
+          
+          
+          function limpa_formulário_cep() {
+            // Limpa valores do formulário de cep.
+            $("#endereco").val("");
+            $("#bairro").val("");
+            $("#cidade").val("");
+            $("#uf").val("");
+            $("#ibge").val("");
+          }
+          
+          $("#cep").blur(function () {
+            //Nova variável "cep" somente com dígitos.
+            var cep = $(this).val().replace(/\D/g, "");
+    
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+              //Expressão regular para validar o CEP.
+              var validacep = /^[0-9]{8}$/;
+    
+              //Valida o formato do CEP.
+              if (validacep.test(cep)) {
+                //Preenche os campos com "..." enquanto consulta webservice.
+                $("#endereco").val("...");
+                $("#bairro").val("...");
+                $("#cidade").val("...");
+                $("#uf").val("...");
+                $("#ibge").val("...");
+    
+                //Consulta o webservice viacep.com.br/
+                $.getJSON(
+                  "https://viacep.com.br/ws/" + cep + "/json/?callback=?",
+                  function (dados) {
+                    if (!("erro" in dados)) {
+                      //Atualiza os campos com os valores da consulta.
+                      $("#endereco").val(dados.logradouro);
+                      $("#bairro").val(dados.bairro);
+                      $("#cidade").val(dados.localidade);
+                      $("#uf").val(dados.uf);
+                      $("#ibge").val(dados.ibge);
+                    } //end if.
+                    else {
+                      //CEP pesquisado não foi encontrado.
+                      limpa_formulário_cep();
+                      alert("CEP não encontrado.");
+                    }
+                  }
+                );
+              } //end if.
+              else {
+                //cep é inválido.
+                limpa_formulário_cep();
+                alert("Formato de CEP inválido.");
+              }
+            } //end if.
+            else {
+              //cep sem valor, limpa formulário.
+              limpa_formulário_cep();
+            }
+          })
+          function getCookie(name) {
+              let cookies = document.cookie.split("; ");
+              for (let i = 0; i < cookies.length; i++) {
+                  let cookie = cookies[i];
+                  let [cookieName, cookieValue] = cookie.split("=");
+                  if (cookieName === name) {
+                      return cookieValue;
+                  }
+              }
+              return null;
+          }
+          
+			
+		$("#salvarCliente").click(function(){
+			var uid = $("#uid_usuario").val();
+			var id_empresa= $("#id_empresa").val();
+			var nome = $("#nome").val();
+			var email = $("#email").val();
+			
+			var cpf = $("#cpf").val();	
+			var cnpj = $("#cnpj").val();	
+			
+			
+			console.log('cpf: '+cpf);
+			console.log('cnpj: '+cnpj);
+			//return;
+			
+			
+			if (cpf==""){
+				cpf=cnpj;
+			}
+			
+			var telefone = $("#telefone").val();	
+			var cep = $("#cep").val();					
+			var endereco = $("#endereco").val();
+			var numero = $("#numero").val();
+			var complemento = $("#complemento").val();
+			var bairro = $("#bairro").val();					
+			var cidade = $("#cidade").val();
+			var uf = $("#uf").val();
+				
+			$.post('/adm/addCliente', {
+				uid_usuario: uid,
+				
+				nome: nome,
+				email: email,
+				cpf: cpf,
+				telefone: telefone,
+				cep: cep,
+				endereco:endereco,
+				numero: numero,
+				complemento: complemento,
+				bairro: bairro,
+				cidade: cidade,
+				uf: uf,
+				id_empresa: id_empresa
+			}, function(resposta) {
+				console.log(resposta)
+				
+				$("body").overhang({
+					type: "success",
+					message: "Cliente cadastrado com sucesso.",
+					duration: 2
+				});
+				
+				setTimeout(() => {
+				  //location.reload(); 
+				  window.location.href = "/adm/clientes/"+uid;
+				}, "2000");
+				
+				
+			});
+
+		})
+
+		  
+    
+      })
+      
+      </script>
+</body>
+
+</html>

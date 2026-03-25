@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="/assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
+    <link href="/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+    <link href="/assets/css/main.min.css" rel="stylesheet" />
+	<link href="/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <style>
+        /*
+		.content-wrapper {
+            position: relative;
+            background-color: #f7f7f7;
+            background-color: #f2f2f2;
+            background-color: #f1f1f1;
+            margin-left: 220px;
+            padding: 0 15px 60px 15px;
+                padding-top: 0px;
+            -webkit-transition: margin .2s ease-in-out;
+            -o-transition: margin .2s ease-in-out;
+            transition: margin .2s ease-in-out;
+            min-height: 600px;
+		}
+		*/
+        .h4, h4 {
+			font-size: 13px;
+			font-weight: bold;
+		}
+		.material-switch{
+			display:none;
+		}
+		.page-footer {
+			  position: absolute;
+			  left: 0;
+			  bottom: 0;
+			  width: 100%;
+			  display: -webkit-box;
+			  display: -webkit-flex;
+			  display: -ms-flexbox;
+			  display: flex;
+			  -webkit-box-pack: justify;
+			  -webkit-justify-content: space-between;
+			  -ms-flex-pack: justify;
+			  justify-content: space-between;
+			  -webkit-box-align: center;
+			  -webkit-align-items: center;
+			  -ms-flex-align: center;
+			  align-items: center;
+			  padding: 10px 15px;
+			  background-color: #fff;
+			  
+			}
+		.to-top{
+			display:none; !important
+		}
+		.select2-container--default .select2-selection--single {
+			background-color: #fff;
+			border: 1px solid #aaa;
+			border-radius: 2px;
+			height: 37px;
+		}
+		.select2-container--default .select2-selection--single .select2-selection__rendered {
+			color: #444;
+			line-height: 32px;
+			font-size: 17px;
+		}
+		.select2-container {
+			box-sizing: border-box;
+			display: inline-block;
+			margin: 0;
+			position: relative;
+			vertical-align: middle;
+			font-size: 16px;
+		}
+		.select2-container--default .select2-selection--single .select2-selection__arrow {
+			height: 26px;
+			position: absolute;
+			top: 5px;
+			right: 1px;
+			width: 20px;
+		}
+    </style>
+</head>
+
+<body class="fixed-navbar sidebar-mini">
+    <div class="page-wrapper">
+        <!-- START HEADER-->
+        <header class="header">
+            <div class="page-brand">
+                <%- include('./../partials/logo.ejs') %>
+            </div>
+            <div class="flexbox flex-1">
+                <!-- START TOP-LEFT TOOLBAR-->
+                <ul class="nav navbar-toolbar">
+                    <li>
+                        <a class="nav-link sidebar-toggler js-sidebar-toggler"><i class="ti-menu"></i></a>
+                    </li>
+                    <li>
+                       
+                    </li>
+                </ul>
+                <!-- END TOP-LEFT TOOLBAR-->
+                <!-- START TOP-RIGHT TOOLBAR-->
+                <ul class="nav navbar-toolbar">
+                    <div class="material-switch pull-right" style="margin-right: 35px;">
+						<a class="" style="margin-right: 25px;font-size: 18px;font-weight: bold;">Mostrar Valores</a>
+						<input id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+						<label for="someSwitchOptionSuccess" class="label-success"></label>
+					</div>
+                </ul>
+                <!-- END TOP-RIGHT TOOLBAR-->
+            </div>
+        </header>
+        <!-- END HEADER-->
+        <!-- START SIDEBAR-->
+        <nav class="page-sidebar" id="sidebar">
+            <div id="sidebar-collapse">
+                <div class="admin-block d-flex">
+                    <div>
+                        <img src="/admin-avatar.png" width="45px" />
+                    </div>
+                    <div class="admin-info">
+                        <div class="font-strong">
+							<%= user %>
+						</div>
+						<small>Administrator</small>
+					</div>
+                </div>
+                <%- include('./../partials/sidebar.ejs') %>
+               
+            </div>
+        </nav>
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content fade-in-up">
+               
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="ibox">
+							<div class="ibox-head">
+								<!--<h2 class="font-bold" style="font-size: 22px;">Adicionar Lancamento</h2>-->
+								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCadProduto" style="margin-top:5px">Cadastrar Produtos</button>
+							</div>
+							<div class="ibox-body">
+								<div class="col-lg-12" style="border: 0px solid #000; text-align:center;">
+									<img src="https://images.tcdn.com.br/img/img_prod/1089784/500_adesivos_personalizados_15cm_x_10cm_155_1_36a962891d72b9fcef4614ee84c04c03.png" style="height:200px;">
+									</div>
+								
+								<form id="formulario" action="javascript:func()" method="post">
+										<input type="hidden" id="uid_usuario" value="<%= uid_usuario %>" >				
+										<input type="hidden" id="id_empresa" value="<%= id_empresa %>" >
+										<input type="hidden" class="form-control"  id="txtDocumentoInterno" />
+										<div class="row">
+											<div class="col-md-12">
+												<h4 class="card-inside-title ">Cliente</h4>
+												<div class="form-group">
+													<select class="form-control select2_demo_2" style="width: 100%;"  id="id_cliente">									
+														<option value="0" selected> Selecione </option>
+														<% cliente.forEach( dados=> { %>
+															<option value="<%= dados.id_cliente %>"><%= dados.nome %></option>
+														<% }) %>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-7">
+												<h4 class="card-inside-title ">Produto</h4>
+												<div class="form-group">
+													<select class="form-control select2_demo_2" style="width: 100%;"  id="id_produto">									
+														<option value="0" selected> Selecione </option>
+														<% produtos.forEach( dados=> { %>
+															<option value="<%= dados.id_produto %>"><%= dados.descricao %> ( Valor: R$ <%= dados.valor %> )</option>
+														<% }) %>
+													</select>
+												</div>
+											</div>
+											
+											<div class="col-sm-3">
+												<h4 class="card-inside-title ">Quantidade</h4>
+												<div class="form-group">
+													<div class="form-line">
+														<input type="text" class="form-control money" id="qtde" value="1" style="height: 40px; font-size: 19px; font-weight: bold;"/>
+													</div>
+												</div>
+											</div>
+											<div class="col-sm-2">
+												<h4 class="card-inside-title ">Valor</h4>
+												<div class="form-group">
+													<div class="form-line">
+														<input type="text" class="form-control money" placeholder="0.00" id="valor"  style="height: 40px; font-size: 19px; font-weight: bold;" />
+													</div>
+												</div>
+											</div>
+											
+											
+											
+										</div>
+										
+										
+										<div class="row">
+											<div class="col-lg-12">
+												<button type="button" class="btn btn-primary col-lg-12" id="addProdutoLancamento" style="margin-top:30px">Adicionar</button>
+										</div>
+										
+											
+										
+											
+										</div><!--
+										<div class="row">
+											<button class="btn btn-primary" type="submit" id="salvarLancamento" style="margin-left: 15px;"><i class="fa fa-fw fa-lg fa-check-circle"></i>Cadastrar</button>&nbsp;&nbsp;&nbsp;
+										</div>-->
+									</form>
+								<div class="row">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-6">
+					
+						<div class="ibox">
+							<div class="ibox-head">
+								
+								<h2 class="font-bold" style="font-size: 22px;">Produtos</h2>
+								<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo" style="margin-top:5px">Cadastrar Cliente</button>-->
+							</div>
+							<div class="ibox-body">
+								<div id="div1" style="width:100%; margin-top:0px; padding:0px;"></div>
+																	
+							</div>
+							
+						</div>
+						
+						<div class="ibox">
+							
+							<div class="ibox-body">
+								<div class="row">
+									<div class="col-sm-3" >
+										<h4 class="card-inside-title">Lançamento </h2>
+											<div class="form-group">
+												<div class="form-line">
+													<input type="text" class="form-control date" id="data_atual" />
+												</div>
+											</div>
+									</div>
+
+									<div class="col-sm-3" >
+										<h4 class="card-inside-title">Vencimento </h2>
+											<div class="form-group">
+												<div class="form-line">
+													<input type="text" class="form-control date" id="data_vencimento" />
+												</div>
+											</div>
+									</div>
+
+									<div class="col-lg-12" style="margin-top:0px;">
+										<div class="form-group">
+											<h4 class="card-inside-title ">Observação da Venda</h4>
+											<textarea class="form-control col-lg-12" rows="2" id="observacao"></textarea>
+										</div>
+									</div>	
+								</div>
+								
+								
+								
+								
+								
+								<div class="row">
+									
+									<div class="col-sm-2" style="display:none;">
+										<h4 class="card-inside-title">Data </h2>
+										<div class="form-group">
+											<div class="form-line">
+												<input type="text" class="form-control date" id="data_atual" />
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-lg-12" >
+										<div id="div2" style="width:100%; margin-top:20px; padding:0px; font-size: 30px;font-weight: 900;text-align: center;"></div>
+									</div>
+								</div>
+										
+								
+							</div>
+							
+						</div>
+						<div class="col-lg-12">
+							
+							<!--<a href="/adm/vendasF/<%= uid_usuario %>/<%= venda %>"<button type="button" class="btn btn-primary col-lg-12" style="margin-top:20px">Finaliza</button></a>-->
+							<button type="button" class="btn btn-primary col-lg-12"  id="finalizarVendas" style="margin-top:10px">Finaliza</button>
+						</div>
+					</div>
+				</div>
+            </div>
+           
+        </div>
+    </div>
+
+	<div class="modal fade " id="modalCadProduto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog  modal-md" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+										
+					<form id="formulario" action="javascript:func()" method="post">
+						<input type="hidden" id="uid_usuario" value="<%= uid_usuario %>"/>
+						<input type="hidden" id="id_empresa" value="<%= id_empresa %>"/>
+						
+						<div class="col-sm-12">
+							<h4 class="card-inside-title ">Produto</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control" placeholder="" id="produto" required />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<h4 class="card-inside-title ">Valor</h4>
+							<div class="form-group">
+								<div class="form-line">
+									<input type="text" class="form-control" placeholder="" id="valor_produto" required />
+								</div>
+							</div>
+						</div>
+						
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+						<button type="button" class="btn btn-success" id="cadProdutos">Cadastrar</button>
+					</form>			
+					<div class="modal-footer">
+						<!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+    <!-- BEGIN PAGA BACKDROPS-->
+    <div class="sidenav-backdrop backdrop"></div>
+    <div class="preloader-backdrop">
+        <div class="page-preloader">Loading</div>
+    </div>
+<!-- End of LiveAgent integration script -->
+	<script type="text/javascript" src="/jquery.min.js"></script>
+	<script type="text/javascript" src="/jquery-ui.min.js"></script>
+	 <script src="/jquery.mask.min.js"></script>
+	<script src="/assets/vendors/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
+    
+	<script src="/assets/vendors/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/jquery-knob/dist/jquery.knob.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/moment/min/moment.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/jquery-minicolors/jquery.minicolors.min.js" type="text/javascript"></script>
+	
+	<script src="/assets/js/app.min.js" type="text/javascript"></script>
+	
+	
+	<script src="/assets/js/scripts/form-plugins.js" type="text/javascript"></script>	
+	<script type="text/javascript">
+		$(document).ready(function() {
+		let documento_interno_ = "";
+		
+		$('#valor').mask('000.000.000.000.000,00', {reverse: true});
+		$('#valor_produto').mask('000.000.000.000.000,00', {reverse: true});
+		$("#data_atual").mask("00/00/0000");
+		$("#data_vencimento").mask("00/00/0000");
+		
+		var getData = dataAtual();			
+			document.getElementById("data_atual").value = getData;
+			function dataAtual(){
+				var data = new Date();
+				var dia = String(data.getDate()).padStart(2, '0');
+				var mes = String(data.getMonth() + 1).padStart(2, '0');
+				var ano = data.getFullYear();
+				dataAtual = dia + '/' + mes + '/' + ano;			   
+				return dataAtual;
+			}
+		
+		
+		$("#div1").load("/adm/produtos_tabela/"+"<%= uid_usuario %>"+"/"+<%= venda %>+"/A");
+		//$("#div1").load("/adm/produtos_tabela/"+"<%= uid_usuario %>"+"/"+<%= venda %>);
+		$("#div2").load("/adm/produtos_tabela_total/"+<%= venda %>);
+		
+		//COMBO DE PRODUTOS
+		$('#id_produto').select2();
+		$('#id_produto').on('select2:select', function(evt) {
+			
+			let id_produto = $(this).val();
+			$.get("/adm/getDadosproduto/"+id_produto, function(data, status){
+				document.getElementById("valor").value = data;
+				document.getElementById("qtde").value = "1";
+			});
+		});
+	
+		$("#cadProdutos").click(function(){
+			let uid = $("#uid_usuario").val();			
+			let id_empresa = $("#id_empresa").val();			
+			let produto = $("#produto").val();
+			let valor_produto = $("#valor_produto").val();
+			
+			$.post('/adm/produtos', {
+				uid_usuario: uid,
+				id_empresa: id_empresa,
+				produto: produto,
+				valor: valor_produto.replace(",",".")
+			}, function(resposta) {
+				swal(resposta);
+				
+				setTimeout(() => {
+					window.location.reload(true);
+					//window.location.href = "/adm/lancamentos/"+uid;				  
+				}, "1000");
+				
+			});
+			
+		})
+	
+	$("#finalizarVendas").click(function(){
+		
+		var uid = $("#uid_usuario").val();			
+		var id_empresa = $("#id_empresa").val();			
+		var id_cliente = $("#id_cliente").val();
+		var observacao = $("#observacao").val();
+		var data_lancamento = $("#data_atual").val();		
+		let data_vencimento = $("#data_vencimento").val();
+		
+		console.log(data_lancamento)
+		
+		if(data_vencimento!=""){
+			if(validarDataCompleta(data_vencimento)==false){
+				swal("Informe o vencimento corretamente dd/mm/yyyy");
+				return;
+			}
+		}
+		if(validarDataCompleta(data_lancamento)==false){
+			swal("Informe a Data de Lancamento corretamente dd/mm/yyyy");
+			return;
+		}
+		
+		function validarDataCompleta(dataString) {
+			const partesData = dataString.split('/');
+			const dia = parseInt(partesData[0]);
+			const mes = parseInt(partesData[1]) - 1; // Meses em JavaScript começam em 0
+			const ano = parseInt(partesData[2]);
+
+			console.log(dia)
+			console.log(mes)
+			console.log(ano)
+
+			const data = new Date(ano, mes, dia);
+
+			return data.getFullYear() === ano &&
+				 data.getMonth() === mes &&
+				 data.getDate() === dia;
+		}
+		
+		
+		if(id_cliente=="0" || id_cliente==""){
+			swal("Informe o Cliente");
+			return;
+		}
+		
+		$.post('/adm/addLancamento', {
+			uid_usuario: uid,
+			id_empresa: id_empresa,
+			id_cliente: id_cliente,
+			documento: <%= venda %>,
+			data: data_lancamento,
+			data_vencimento: data_vencimento, 
+			//valor: valor.replace(',','.'),
+			observacao: observacao
+			
+		}, function(resposta) {
+			swal("Venda Realizada com Sucesso");
+			setTimeout(() => {
+			  window.location.href = "/adm/lancamentos/"+uid;				  
+			}, "1000");
+			
+		});
+		
+	})
+	
+	
+	$("#addProdutoLancamento").click(function(){
+		let uid = $("#uid_usuario").val();
+		let id_empresa = $("#id_empresa").val();			
+		let id_cliente = $("#id_cliente").val();
+		let id_produto = $("#id_produto").val();
+		let qtde = $("#qtde").val();
+		let  valor = $("#valor").val();	
+		
+		
+		documento_interno_ =<%= venda %>
+		
+		$.post('/adm/produtosVendas', {
+			uid_usuario: uid,
+			documento_interno: documento_interno_,
+			id_empresa: id_empresa,					
+			id_produto: id_produto,
+			id_cliente: id_cliente,
+			qtde: qtde,
+			valor: valor.replace(',','.')
+			
+		}, function(resposta) {
+			document.getElementById("txtDocumentoInterno").value = documento_interno_;
+			//swal("Dados Atualizados com Sucesso");
+			//setTimeout(() => {
+			  //window.location.href = "/adm/principal/"+uid;				  
+			//}, "1000");
+				
+			$("#div1").load("/adm/produtos_tabela/"+"<%= uid_usuario %>"+"/"+<%= venda %>+"/A");
+			$("#div2").load("/adm/produtos_tabela_total/"+documento_interno_);
+			
+		});
+		
+		//$("#div1").load("/adm/produtos_tabela");
+	})
+	
+	
+	
+	$("#salvarLancamento").click(function(){
+
+		var uid = $("#uid_usuario").val();			
+		var id_empresa = $("#id_empresa").val();			
+		var id_cliente = $("#id_cliente").val();
+		var valor = $("#valor").val();	
+		
+		if(id_cliente=="0" || id_cliente==""){
+			swal("Informe o Cliente");
+			return;
+		}
+		console.log('valor '+valor);
+		if(valor===undefined || valor==""){
+			swal("Informe o Valor");
+			return;
+		}
+		var documento = $("#documento").val();				
+		var data_lancamento = $("#data_atual").val();	
+		var data_vencimento = $("#data_vencimento").val();					
+		var observacao = $("#observacao").val();					
+		
+		
+		$.post('/adm/addLancamento', {
+			uid_usuario: uid,
+			id_empresa: id_empresa,
+			id_cliente: id_cliente,
+			documento: documento,
+			data: data_lancamento,
+			data_vencimento: data_vencimento, 
+			valor: valor.replace(',','.'),
+			observacao: observacao
+			
+		}, function(resposta) {
+			console.log(resposta)
+		});
+
+	})
+	
+	
+	function documento_venda (){
+		var data = new Date();
+
+		// Guarda cada pedaço em uma variável
+		var dia     = data.getDate();           // 1-31
+		var dia_sem = data.getDay();            // 0-6 (zero=domingo)
+		var mes     = data.getMonth();          // 0-11 (zero=janeiro)
+		var ano2    = data.getYear();           // 2 dígitos
+		var ano4    = data.getFullYear();       // 4 dígitos
+		var hora    = data.getHours();          // 0-23
+		var min     = data.getMinutes();        // 0-59
+		var seg     = data.getSeconds();        // 0-59
+		var mseg    = data.getMilliseconds();   // 0-999
+		var tz      = data.getTimezoneOffset(); // em minutos
+		
+		// Formata a data e a hora (note o mês + 1)
+		//var str_data = dia + '/' + (mes+1) + '/' + ano4;
+		var str_data = ano4 + '-' + (mes+1) + '-' + dia;
+		var str_hora = hora + ':' + min + ':' + seg;
+		
+		
+		
+		if(dia<10){
+			dia="0"+dia;	
+		}
+		if(min<10){
+			min = "0"+min;
+		}
+		if(hora<10){
+			hora = "0"+hora;
+		}
+		
+		var str_data = dia + '/' + (mes+1) + '/' +  ano4;
+		// Mostra o resultado
+		//alert('Hoje é ' + str_data + ' às ' + str_hora);
+		//return str_data + ' ' +str_hora;
+		//return str_data;
+		return ano4+'-'+(mes+1)+'-'+dia+'-'+hora+'-'+min+'-'+seg;
+		
+
+	}
+})
+	</script>
+</body>
+
+</html>
+
+<!--
+                                    -->

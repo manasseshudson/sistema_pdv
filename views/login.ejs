@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <title>GERENCIE SUA EMPRESA</title>
+    <link href="./assets/bootstrap.min.css" rel="stylesheet" />
+    <link href="./assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="./assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
+    <link href="./assets/css/main.css" rel="stylesheet" />
+    <link href="./assets/css/pages/auth-light.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <style>
+
+.content {
+  max-width: 400px;
+  margin: 0 auto;
+    margin-top: 0px;
+  margin-top: 130px;
+}
+    </style>
+</head>
+
+<body class="bg-silver-300">
+    <div class="content">
+        <div class="brand">
+            
+        </div>
+        <form id="login-form" action="/login" method="post">
+            <h2 class="login-title">Log in</h2>
+            <div class="form-group">
+                <div class="input-group-icon right">
+                    <div class="input-icon"><i class="fa fa-envelope"></i></div>
+                    <input class="form-control" type="email" name="email" id="email" placeholder="EMAIL" autocomplete="off">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group-icon right">
+                    <div class="input-icon"><i class="fa fa-lock font-16"></i></div>
+                    <input class="form-control" type="password" name="senha" id="senha" placeholder="Senha">
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-info btn-block" type="submit" id="login_user">Login</button>
+            </div>
+            <!--<div class="social-auth-hr">
+                <span>É novo por aqui?</span>
+            </div>
+            <div class="text-center">
+                <a class="color-blue" href="/cadastrar">Cadastrar</a><br/>
+				
+            </div>-->
+        </form>
+    </div>
+    <div class="sidenav-backdrop backdrop"></div>
+    <div class="preloader-backdrop">
+        <div class="page-preloader">Loading</div>
+    </div>
+	 <% if(abrir_aviso==true){ %>
+    <script>
+       swal("<%= mensagem_modal %>", {
+            buttons: false,
+            timer: "<%= tempo_modal %>",
+        });
+    </script>
+    <% } %>
+    <script src="/assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script><!--
+    <script src="/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
+    --><script src="/assets/js/app.min.js" type="text/javascript"></script>  <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+	<script type="text/javascript" src="/overhang.min.js"></script>
+    -->
+    <script>
+		$(document).ready(function(){
+			$("#login_user").click(function(){
+				
+				let email = $("#email").val();
+				let senha = $("#senha").val();
+				
+				
+				$.post('/login', {					
+					email : email,
+					senha:senha
+				}, function(resposta) {
+					console.log(resposta)
+					/*$("body").overhang({
+						type: "success",
+						message: "Login efetuado com sucesso.",
+						duration: 2
+					});
+					setTimeout(() => {
+					  window.location.href = "/adm/principal/"+uid;
+					}, "2000");
+					*/
+				});
+	  
+			
+		})
+		$('#cpf').mask('000.000.000-00');
+	})
+    </script>
+</body>
+
+</html>

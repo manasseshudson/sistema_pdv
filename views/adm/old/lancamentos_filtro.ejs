@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="/assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
+    <link href="/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+    <link href="/assets/css/main.min.css" rel="stylesheet" />
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>-->
+    <link rel="stylesheet" href="/assets/dataTables.dataTables.css" />
+    <script src="/assets/sweetalert.min.js"></script>
+    <style>
+        .content-wrapper {
+            position: relative;
+            background-color: #f7f7f7;
+            background-color: #f2f2f2;
+            background-color: #f1f1f1;
+            margin-left: 200px;
+            padding: 0 15px 60px 15px;
+                padding-top: 0px;
+            -webkit-transition: margin .2s ease-in-out;
+            -o-transition: margin .2s ease-in-out;
+            transition: margin .2s ease-in-out;
+            min-height: 1000px;
+            }
+        .page-footer {
+              position: absolute;
+              left: 10px;
+              bottom: 0;
+              width: 100%;
+              display: -webkit-box;
+              display: -webkit-flex;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-pack: justify;
+              -webkit-justify-content: space-between;
+              -ms-flex-pack: justify;
+              justify-content: space-between;
+              -webkit-box-align: center;
+              -webkit-align-items: center;
+              -ms-flex-align: center;
+              align-items: center;
+              padding: 10px 15px;
+              background-color: #fff;
+            }
+            .badge {
+              display: inline-block;
+              padding: .25em .4em;
+              font-size: 75%;
+              font-weight: 700;
+              line-height: 1;
+              color: #fff;
+              text-align: center;
+              white-space: nowrap;
+              vertical-align: baseline;
+              border-radius: .25rem;
+              min-width: 80px;
+              padding: 5px;
+            }
+            .h4, h4 {
+			font-size: 14px;
+		}
+    </style>
+</head>
+
+<body class="fixed-navbar sidebar-mini">
+    <div class="page-wrapper">
+        <!-- START HEADER-->
+        <header class="header">
+            <div class="page-brand">
+              <%- include('./../partials/logo.ejs') %>
+            </div>
+            <div class="flexbox flex-1">
+                <!-- START TOP-LEFT TOOLBAR-->
+                <ul class="nav navbar-toolbar">
+                    <li>
+                        <a class="nav-link sidebar-toggler js-sidebar-toggler"><i class="ti-menu"></i></a>
+                    </li>
+                    <li>
+                       
+                    </li>
+                </ul>
+                <!-- END TOP-LEFT TOOLBAR-->
+                <!-- START TOP-RIGHT TOOLBAR-->
+                <ul class="nav navbar-toolbar">
+                    
+                </ul>
+                <!-- END TOP-RIGHT TOOLBAR-->
+            </div>
+        </header>
+        <!-- END HEADER-->
+        <!-- START SIDEBAR-->
+        <nav class="page-sidebar" id="sidebar">
+            <div id="sidebar-collapse">
+                <div class="admin-block d-flex">
+                    <div>
+                        <img src="/assets/img/admin-avatar.png" width="45px" />
+                    </div>
+                    <div class="admin-info">
+                        <div class="font-strong">
+							<%= user %>
+						</div>
+						<small>Administrator</small></div>
+                </div>
+                <%- include('./../partials/sidebar.ejs') %>
+            </div>
+        </nav>
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content fade-in-up">
+				
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-head">
+                            <div class="ibox-title">Lancamentos Realizados filtro
+								
+							</div>
+								<form id="formulario" action="javascript:func()" method="post">
+									<input type="hidden" id="uid_usuario" value="<%= uid_usuario %>">
+								<select id="mes_filtro" >
+									<option value="01">JANEIRO</option>
+									<option value="02">FEVEREIRO</option>
+									<option value="03">MARÇO</option>
+									<option value="04">ABRIL</option>
+									<option value="05">MAIO</option>
+									<option value="06">JUNHO</option>
+									<option value="07">JULHO</option>
+									<option value="08">AGOSTO</option>
+									<option value="09">SETEMBRO</option>
+									<option value="10">OUTUBRO</option>
+									<option value="11">NOVEMBRO</option>
+									<option value="12">DEZEMBRO</option>
+								</select>
+								<select id="ano_filtro" style="margin-left:15px;">
+									<option value="2024">2024</option>
+									<option value="2025" selected>2025</option>									
+								</select>
+								
+								<span class="badge bg-success" style="padding:6px; margin-left:15px;" id="pesquisarDados">Pesquisar</span>
+									Total Recebido em <%= text_mes%>: <a id="valorRecebido" style="font-weight: bold;"><%= total %></a>
+								
+								</form>                            
+							
+                        </div>
+                        <div class="ibox-body">
+                          <table class="table datatable" id="datatable">
+                            <thead>
+                              <tr>
+                                <th>CLiente</th>
+								<th>Documento</th>
+                                <th>Valor</th>
+								<th>Data</th>
+                                <th>Vencimento</th>
+                                <th>Pagamento</th>
+								<th></th>
+                                <th></th>
+								<th></th>
+								<th></th>
+								<!--<th></th>-->
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <% lancamentos.forEach(dados=>{ %>
+                              <tr>
+                                <td><%= dados.nome %></td>
+								<td><%= dados.documento %></td>
+								<td><%= dados.valor %></td>
+								<td><%= dados.data_externa %></td>
+                                <td><%= dados.data_vencimento_externa %></td>
+                                <td><%= dados.data_pagamento_externa %></td>
+                                <!--<td><%= dados.observacao %></td>-->
+								<td style="width: 2%;"><a href="/adm/lancamentos_cliente_detalhes/<%= dados.id_lancamento %>/<%= uid_usuario %>"><span class="badge bg-warning" >detalhes</span></a></td>
+								<!--<td><button type="button" class="btn btn-outline-info" style="padding: 2px;margin: 0px;font-size: 12px; min-width:78px;"  data-toggle="modal" data-target="#modalExemplo_<%= dados.id_lancamento %>">Detalhes</button></td>-->
+								
+								<% if(dados.status==1){ %>
+									<td style="width: 2%;"><a href=""><span class="badge bg-success" >Recebido</span></a></td>
+									<td style="width: 2%;"></td>
+									<td style="width: 2%;"><a href="/adm/editPdv/<%= uid_usuario %>/<%= dados.documento %>"><span class="badge bg-warning" >Editar</span></a></td>
+									<!--<td style="width: 2%;"><a href="/adm/editLancamento/<%= dados.id_lancamento %>/<%= uid_usuario %>"><span class="badge bg-warning" >Editar</span></a></td>-->
+									<!--<td style="width: 2%;"><a href="/adm/remLancamento/<%= dados.id_lancamento %>/<%= uid_usuario %>"><span class="badge bg-danger">Excluir</span></a></td> -->
+								<% }else{ %>
+									<td style="width: 2%;"><a href="/adm/receberLancamentoParcial/<%= dados.id_lancamento %>/<%= uid_usuario %>"><span class="badge bg-danger" >Receber Parcial</span></a></td>
+									<td style="width: 2%;"><a href="/adm/receberLancamentoTotal/<%= dados.id_lancamento %>/<%= uid_usuario %>"><span class="badge bg-danger" >Receber Total</span></a></td>
+									<td style="width: 2%;"><a href="/adm/editPdv/<%= uid_usuario %>/<%= dados.documento %>"><span class="badge bg-warning" >Editar</span></a></td>
+									<!--<td style="width: 2%;"><a href="/adm/editLancamento/<%= dados.id_lancamento %>/<%= uid_usuario %>"><span class="badge bg-warning" >Editar</span></a></td>-->
+									<!--<td style="width: 2%;"><a href="/adm/remLancamento/<%= dados.id_lancamento %>/<%= uid_usuario %>"><span class="badge bg-danger">Excluir</span></a></td>    -->                            
+								<% } %>
+								
+                              </tr>
+                              <% }) %>
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                   
+                </div>
+               
+            </div>
+            <!-- END PAGE CONTENT-->
+            <%- include('./../partials/footer.ejs') %>
+        </div>
+    </div>
+	
+
+    <!-- BEGIN PAGA BACKDROPS-->
+    <div class="sidenav-backdrop backdrop"></div>
+    <div class="preloader-backdrop">
+        <div class="page-preloader">Loading</div>
+    </div>
+    
+    <script src="/assets/vendors/jquery/dist/jquery.min.js" type="text/javascript"></script>
+    <script src="/assets/jquery.mask.min.js"></script>
+    <script src="/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
+    <script src="/assets/js/app.min.js" type="text/javascript"></script>  
+    <script src="/assets/dataTables.js"></script>
+    <script type="text/javascript">
+		$(document).ready(function() {
+			
+			var url_atual = window.location.href;
+			var mes_url = url_atual.substr(url_atual.length - 7); // => "Tabs1"
+
+			console.log(mes_url.substr(0,2))
+
+			document.getElementById('mes_filtro').value = mes_url.substr(0,2);
+			
+			
+			const options = { style: 'currency', currency: 'BRL', minimumFractionDigits: 2, maximumFractionDigits: 3 }
+			const formatNumber = new Intl.NumberFormat('pt-BR', options)
+			
+			let receber = formatNumber.format(<%= total %>);
+			
+
+			document.getElementById("valorRecebido").innerHTML=receber;
+			
+			
+			
+			const hoje = new Date();
+			let mes = hoje.getMonth();
+			console.log(mes + 1);
+			mes = mes+ 1;
+			if(mes<10){
+				mes = '0'+mes;
+			}
+			
+			//var mes = 8;
+			//document.getElementById('mes_filtro').value = mes;
+
+
+
+            $('#datatable').DataTable({
+              'paging'      : true,
+              'lengthChange': false,
+              'searching'   : true,
+              'ordering'    : false,
+              'info'        : false,
+              'autoWidth'   : false,
+              language: {
+                url: 'https://cdn.datatables.net/plug-ins/2.0.3/i18n/pt-PT.json'
+              }
+          })
+		  
+		  $("#pesquisarDados").click(function(){
+			
+			
+			var uid = $("#uid_usuario").val();
+			var id_empresa= $("#id_empresa").val();
+			var mes_filtro = $("#mes_filtro").val();
+			var ano_filtro = $("#ano_filtro").val();
+			
+			window.location.href = "/adm/lancamentos_filtro/"+uid+'/'+mes_filtro+'/'+ano_filtro;
+			/*
+			$.post('/adm/lancamentos_filtro', {
+				uid_usuario: uid,
+				mes: mes_filtro,
+				ano: ano_filtro
+			
+			}, function(resposta) {
+				console.log(resposta)
+				
+				$("body").overhang({
+					type: "success",
+					message: "Cliente cadastrado com sucesso.",
+					duration: 2
+				});
+				
+				setTimeout(() => {
+				  //location.reload(); 
+				  window.location.href = "/adm/clientes/"+uid;
+				}, "2000");
+				
+				
+			});
+			*/
+		})
+
+		  
+		})
+	</script>
+</body>
+
+</html>

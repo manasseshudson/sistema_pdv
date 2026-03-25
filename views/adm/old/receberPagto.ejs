@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <title><%= title %></title>
+    <link href="/assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="/assets/vendors/themify-icons/css/themify-icons.css" rel="stylesheet" />
+    <link href="/assets/vendors/jvectormap/jquery-jvectormap-2.0.3.css" rel="stylesheet" />
+    <link href="/assets/css/main.min.css" rel="stylesheet" />
+	<link href="/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    <style>
+        .content-wrapper {
+            position: relative;
+            background-color: #f7f7f7;
+            background-color: #f2f2f2;
+            background-color: #f1f1f1;
+            margin-left: 220px;
+            padding: 0 15px 60px 15px;
+                padding-top: 0px;
+            -webkit-transition: margin .2s ease-in-out;
+            -o-transition: margin .2s ease-in-out;
+            transition: margin .2s ease-in-out;
+            min-height: 1000px;
+            }
+        #lineModalLabel{
+ 
+            font-family: "Roboto Condensed", sans-serif;
+            font-optical-sizing: auto;
+            /*font-weight: 900;*/
+            font-style: normal;
+
+        }
+		.h4, h4 {
+			font-size: 14px;
+		}
+		.select2-container .select2-selection--single {
+		  box-sizing: border-box;
+		  cursor: pointer;
+		  display: block;
+		  height: 35px;
+		  user-select: none;
+		  -webkit-user-select: none;
+		  font-size: 18px;
+		}
+		.select2-container--default .select2-selection--single .select2-selection__arrow {
+		  height: 26px;
+		  position: absolute;
+		  top: 1px;
+		  right: 1px;
+		  width: 20px;
+		  margin-top: 1px;
+		}
+    </style>
+</head>
+
+<body class="fixed-navbar sidebar-mini">
+    <div class="page-wrapper">
+        <!-- START HEADER-->
+        <header class="header">
+            <div class="page-brand">
+                <%- include('./../partials/logo.ejs') %>
+            </div>
+            <div class="flexbox flex-1">
+                <!-- START TOP-LEFT TOOLBAR-->
+                <ul class="nav navbar-toolbar">
+                    <li>
+                        <a class="nav-link sidebar-toggler js-sidebar-toggler"><i class="ti-menu"></i></a>
+                    </li>
+                    <li>
+                       
+                    </li>
+                </ul>
+                <!-- END TOP-LEFT TOOLBAR-->
+                <!-- START TOP-RIGHT TOOLBAR-->
+                <ul class="nav navbar-toolbar">
+                    
+                </ul>
+                <!-- END TOP-RIGHT TOOLBAR-->
+            </div>
+        </header>
+        <!-- END HEADER-->
+        <!-- START SIDEBAR-->
+        <nav class="page-sidebar" id="sidebar">
+            <div id="sidebar-collapse">
+                <div class="admin-block d-flex">
+                    <div>
+                        <img src="/admin-avatar.png" width="45px" />
+                    </div>
+                    <div class="admin-info">
+                        <div class="font-strong">
+							<%= user %>
+						</div>
+						<small>Administrator</small>
+					</div>
+                </div>
+                <%- include('./../partials/sidebar.ejs') %>
+               
+            </div>
+        </nav>
+        <!-- END SIDEBAR-->
+        <div class="content-wrapper">
+            <!-- START PAGE CONTENT-->
+            <div class="page-content fade-in-up">
+                <div class="row">
+					<div class="col-lg-12">
+						<div class="ibox">
+							<div class="ibox-head">
+								<h2 class="font-bold" style="font-size: 22px;">Receber </h2>
+								<!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalExemplo">Adicionar Lancamentos</button>-->
+							</div>
+							<div class="ibox-body">
+								<form id="formulario" action="javascript:func()" method="post">
+									<input type="hidden" id="uid_usuario" value="<%= uid_usuario %>" >				
+									<input type="hidden" id="id_empresa" value="<%= id_empresa %>" >
+									<input type="text" class="form-control money" id="valorOriginal"  value="<%= valor %>" >
+									
+									<input type="hidden" id="id_lancamento" value="<%= id_lancamento %>" >
+									
+									<div class="row">
+										<div class="col-md-12">
+											<h4 class="card-inside-title ">Cliente</h4>
+											<div class="form-group">
+												<select class="form-control select2_demo_2" style="width: 100%;"  id="id_cliente" disabled>
+													<option value="<%= id_cliente %>" selected><%= nome_cliente %></option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-sm-4">
+											<h4 class="card-inside-title ">Documento</h4>
+											<div class="form-group">
+												<div class="form-line">
+													<input type="text" class="form-control"  id="documento" value="<%= documento %>" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-3" >
+											<h4 class="card-inside-title">Data </h2>
+											<div class="form-group">
+												<div class="form-line">
+													<input type="text" class="form-control date" id="data_atual" value="<%= data %>" disabled />
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-3" >
+											<h4 class="card-inside-title">Vencimento </h2>
+											<div class="form-group">
+												<div class="form-line">
+													<input type="text" class="form-control date" id="data_vencimento" value="<%= vencimento_formatado %>"/>
+												</div>
+											</div>
+										</div>						
+										<div class="col-sm-2">
+											<h4 class="card-inside-title ">Valor</h4>
+											<div class="form-group">
+												<div class="form-line">
+													<input type="text" class="form-control money" placeholder="0.00" id="valor" value="<%= valor %>" />
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">										
+										<div class="col-md-12">
+											<div class="form-group">
+												<label>Observação</label>
+												<textarea class="form-control" rows="3" id="observacao"><%= observacao %></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<button class="btn btn-primary" type="submit" id="receberParcial" style="margin-left:15px;"><i class="fa fa-fw fa-lg fa-check-circle"></i>Receber</button>&nbsp;&nbsp;&nbsp;
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>	
+
+			
+
+                    
+                </div>
+                
+            </div>
+            <!-- END PAGE CONTENT-->
+            <%- include('./../partials/footer.ejs') %>
+        </div>
+    </div>
+    <!-- BEGIN PAGA BACKDROPS-->
+    <div class="sidenav-backdrop backdrop"></div>
+    <div class="preloader-backdrop">
+        <div class="page-preloader">Loading</div>
+    </div>
+<!-- End of LiveAgent integration script -->
+	<script type="text/javascript" src="/jquery.min.js"></script>
+	<script type="text/javascript" src="/jquery-ui.min.js"></script>
+	 <script src="/jquery.mask.min.js"></script>
+	<script src="/assets/vendors/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
+    
+	<script src="/assets/vendors/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/jquery-knob/dist/jquery.knob.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/moment/min/moment.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+    <script src="/assets/vendors/jquery-minicolors/jquery.minicolors.min.js" type="text/javascript"></script>
+	
+	<script src="/assets/js/app.min.js" type="text/javascript"></script>
+	
+	
+	<script src="/assets/js/scripts/form-plugins.js" type="text/javascript"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#valor').mask('000.000.000.000.000,00', {reverse: true});
+			$('#valorOriginal').mask('000.000.000.000.000,00', {reverse: true});
+			$("#data_atual").mask("00/00/0000");
+			$("#data_vencimento").mask("00/00/0000");
+			
+			
+			$("#receberParcial").click(function(){
+				
+				var uid = $("#uid_usuario").val();
+				var id_lancamento = $("#id_lancamento").val();
+				var id_empresa = $("#id_empresa").val();			
+				var id_cliente = $("#id_cliente").val();
+				var valor = $("#valor").val();	
+				
+				if(id_cliente=="0" || id_cliente==""){
+					swal("Informe o Cliente");
+					return;
+				}
+				if(valor===undefined || valor==""){
+					swal("Informe o Valor");
+					return;
+				}
+				var documento = $("#documento").val();				
+				var data_lancamento = $("#data_atual").val();	
+				var data_vencimento = $("#data_vencimento").val();					
+				var observacao = $("#observacao").val();					
+				
+				var valorOriginal = $("#valorOriginal").val();			
+				
+				if( valor < valorOriginal){
+					documento = documento +'-1' 
+				}
+				
+				// Valores como strings no formato brasileiro
+				let valor1 = valorOriginal;
+				let valor2 = valor;
+
+				console.log(valor1)
+				console.log(valor2)
+				// Convertendo para número (formato internacional: ponto decimal)
+				let num1 = parseFloat(valor1.replace(".", "").replace(",", "."));
+				let num2 = parseFloat(valor2.replace(".", "").replace(",", "."));
+
+				// Subtraindo
+				let valorRestante = num1 - num2;
+
+				//let valorRestante = valorOriginal.replace(',','.') - valor.replace(',','.');
+				//let valorRestante = valorOriginal - valor;
+								
+				valorRestante = valorRestante.toFixed(2);
+				console.log(valorRestante)
+				
+			
+				$.post('/adm/receberLancamentoParcial', {
+					id_lancamento: id_lancamento,
+					uid_usuario: uid,
+					id_empresa: id_empresa,
+					id_cliente: id_cliente,
+					documento: documento,
+					data: data_lancamento,
+					data_vencimento: data_vencimento, 
+					valor: valorRestante.replace(',','.'),
+					observacao: observacao
+					
+				}, function(resposta) {
+					swal(resposta);
+					setTimeout(() => {
+					   window.location.href = "/adm/lancamentos/"+uid;	
+					}, "2000");
+				});
+				
+			})
+		})
+	</script>
+</body>
+
+</html>
+
+<!--
+                                    -->

@@ -1,0 +1,65 @@
+<ul class="side-menu metismenu">
+    <li>
+        <a href="" id="link_principal"><i class="sidebar-item-icon fa fa-th-large"></i>
+            <span class="nav-label">Dashboard</span>
+        </a>
+    </li>
+	<li>
+        <a href="" id="link_clientes"><i class="sidebar-item-icon fa fa-users" aria-hidden="true"></i>
+            <span class="nav-label">Clientes</span>
+        </a>
+    </li>
+    <li>
+        <a href="" data-toggle="modal" data-target="#modalCadastrarProdutos">
+			<i class="sidebar-item-icon fa fa-user"></i>
+            <span class="nav-label">Usuários</span>
+        </a>
+    </li>
+	<li>
+        <a href="" id="link_produtos"><i class="sidebar-item-icon fa fa-barcode" aria-hidden="true"></i>
+            <span class="nav-label">Produtos</span>
+        </a>
+    </li>
+	
+	<li>
+        <a href="" id="link_lancamentos"><i class="sidebar-item-icon fa fa-cart-plus" aria-hidden="true"></i>
+            <span class="nav-label">Lancamentos</span>
+        </a>
+    </li>
+    <li>
+        <a href="/login"><i class="sidebar-item-icon fa fa-power-off" aria-hidden="true"></i>
+            <span class="nav-label">Sair</span>
+        </a>
+    </li>
+</ul>
+
+<script>
+
+    function getCookie(name) {
+        let cookies = document.cookie.split("; ");
+        for (let i = 0; i < cookies.length; i++) {
+            let cookie = cookies[i];
+            let [cookieName, cookieValue] = cookie.split("=");
+            if (cookieName === name) {
+                return cookieValue;
+            }
+        }
+        return null;
+    }
+
+        let a_principal = document.querySelector("#link_principal");
+        a_principal.href = "/adm/principal/"+ getCookie("user");
+
+        let a_clientes = document.querySelector("#link_clientes");
+        a_clientes.href = "/adm/clientes/"+ getCookie("user");
+		
+		let a_produtos = document.querySelector("#link_produtos");
+        a_produtos.href = "/adm/produtos/"+ getCookie("user");
+		
+		let a_lancamentos = document.querySelector("#link_lancamentos");
+        a_lancamentos.href = "/adm/lancamentos/"+ getCookie("user");
+		
+		//let a_vendas = document.querySelector("#link_vendas");
+        //a_vendas.href = "/adm/vendas/"+ getCookie("user");
+
+</script>

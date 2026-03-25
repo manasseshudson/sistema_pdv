@@ -1,0 +1,36 @@
+<link href="/assets/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<table class="table">
+	<thead>
+		<tr>
+			
+			<th style="text-align: center; width: 85%; text-align:left;">Produto</th>
+			<th style="text-align: center; width: 5%;">Quantidade</th>
+			<th style="text-align: center;width: 5%;">Valor</th>
+			<th style="text-align: right;width: 5%;">Total</th>
+			<th style="text-align: right;width: 5%;"></th>
+			
+		</tr>
+	</thead>
+	<tbody>
+		<form id="formulario" action="javascript:func()" method="post">
+		<% produtos.forEach(dados=> { %>
+		<tr><td style="text-align: center; width: 85%; text-align:left;"><%= dados.produto %></td>
+			<td style="text-align: center; width: 5%;"><%= dados.qtde %></td>
+			<td style="text-align: center; width: 5%;"><%= dados.valor %></td>
+			<td style="text-align: right;width: 5%;"><%= dados.valorTotal %></td>
+			<td style="text-align: right;width: 10%;"><a href="/adm/removerProdutosVenda/<%= dados.id_temp_lancamentos_cliente_produtos %>/<%= uid_usuario %>/<%= documento %>/E">
+				<span class="badge badge-danger badge-pill m-b-5">EXCLUIR</span></a>
+			</td>
+		</tr>
+		<% }) %>
+		</form>
+	</tbody>
+</table>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#remover").click(function(){
+			alert()
+		})
+	})
+</script>

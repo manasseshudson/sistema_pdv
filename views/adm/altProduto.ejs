@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Gerencie Sua Empresa</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="/v2/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/v2/bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/v2/bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="/v2/dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="/v2/dist/css/skins/_all-skins.min.css">
+  <link rel="stylesheet" href="/v2/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="/v2/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" href="/v2/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="index2.html" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>G</b>CE</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>Geren</b>CIE</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <div class="user-panel">
+        <div class="pull-left image">
+          <img src="/v2/dist/img/user.png" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+          <p><%= user %></p>
+          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+      </div>
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="header">MAIN NAVIGATION</li>
+		<li>
+          <a href="/adm/principal/<%= uid_usuario %>">
+            <i class="fa fa-envelope"></i> <span>Principal</span>
+          </a>
+        </li>
+		
+        <li class="treeview">
+			<a href="#">
+				<i class="fa fa-files-o"></i>
+					<span>Cadastros</span>
+			</a>
+			<ul class="treeview-menu">
+				<li>
+					<a href="" data-toggle="modal" data-target="#modalCadastrarProdutos">
+						<i class="sidebar-item-icon fa fa-user"></i>
+						<span class="nav-label">Usuários</span>
+					</a>
+				</li>
+          </ul>
+        </li>
+		<li>
+          <a href="/adm/usuarios/<%= uid_usuario %>">
+            <i class="fa fa-users"></i> <span>Usuários</span>
+          </a>
+        </li>
+        <li>
+          <a href="/adm/clientes/<%= uid_usuario %>">
+            <i class="fa fa-users"></i> <span>Clientes</span>
+          </a>
+        </li>
+		<li>
+          <a href="/adm/produtos/<%= uid_usuario %>">
+            <i class="fa fa-envelope"></i> <span>Produtos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/adm/lancamentos/<%= uid_usuario %>">
+            <i class="fa fa-envelope"></i> <span>Vendas</span>
+          </a>
+        </li>
+      
+        
+        
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>Produto<small><%= produto %></small></h1>
+    </section>
+    <section class="content">
+			<div class="row">
+				<section class="col-lg-12 connectedSortable">
+					<div class="box">
+						<div class="box-header">
+						</div>
+						<form class="form-horizontal">
+							<input type="hidden" id="uid_usuario" value="<%= uid_usuario %>" />
+							<input type="hidden" id="id_empresa" value="<%= id_empresa %>" />
+						  <div class="box-body">
+							<div class="form-group">
+							  <label for="inputEmail3" class="col-sm-2 control-label">Produto</label>
+			
+							  <div class="col-sm-10">
+								<input type="text" class="form-control" id="produto" placeholder="Produto" value="<%= produto %>">
+							  </div>
+							</div>
+							<div class="form-group">
+							  <label for="inputPassword3" class="col-sm-2 control-label">Valor</label>
+							  <div class="col-sm-2">
+								<input type="text" class="form-control" id="valor_produto" placeholder="0.00" value="<%= valor %>">
+							  </div>
+							</div>
+						</div>
+              <!-- /.box-body -->
+              <div class="box-footer">
+                <button type="submit" class="btn btn-warning pull-right" id="altProduto">Alterar</button>
+              </div>
+              <!-- /.box-footer -->
+            </form>
+					</div>
+				</section>
+			</div>
+		</section>
+  </div>
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 2.4.18
+    </div>
+    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  <div class="control-sidebar-bg"></div>
+  <%- include('./../partials/modal_cadastrar_usuarios.ejs') %>
+</div>
+
+
+<script src="/v2/bower_components/jquery/dist/jquery.min.js"></script>
+<script src="/v2/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<script src="/v2/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="/v2/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/v2/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<script src="/v2/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/v2/bower_components/fastclick/lib/fastclick.js"></script>
+<script src="/v2/dist/js/adminlte.min.js"></script>
+<script src="/v2/dist/js/pages/dashboard.js"></script>
+<script src="/v2/cadastros.js"></script>
+<script src="/jquery.mask.min.js"></script>
+<script>
+	$(function () {
+		const campo = document.getElementById('valor_produto');
+		campo.addEventListener('input', () => {
+		  let valor = campo.value.replace(/\D/g, ''); // remove tudo que não é número
+		  valor = (valor / 100).toFixed(2) + ''; // divide por 100 e fixa 2 casas
+		  valor = valor.replace('.', ','); // troca ponto por vírgula
+		  //valor = 'R$ ' + valor.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // formata milhar
+		  valor = valor.replace(/\B(?=(\d{3})+(?!\d))/g, '.'); // formata milhar
+		  valor = valor.replace(',', '.');
+		  campo.value = valor;
+		});
+	})
+  
+	$("#altProduto").click(function(){
+				
+		let uid = $("#uid_usuario").val();			
+		let id_empresa = $("#id_empresa").val();			
+		let produto = $("#produto").val();
+		let valor_produto = $("#valor_produto").val();
+		let id_produto = <%= id_produto %>;
+		
+		//alert(uid)
+		//return;
+		$.post('/adm/altProdutos', {
+			uid_usuario: uid,
+			id_empresa: id_empresa,
+			produto: produto,
+			valor: valor_produto.replace(",","."),
+			id_produto
+		}, function(resposta) {
+			alert(resposta);
+			
+			window.location.href = "/adm/produtos/"+uid;
+			
+		});
+			
+	})
+</script>
+
+</body>
+</html>
